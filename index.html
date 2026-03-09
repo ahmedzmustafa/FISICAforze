@@ -533,6 +533,53 @@
       opacity: 0.5;
     }
 
+    /* ── LIGHTBOX ── */
+    .photo-container img {
+      cursor: zoom-in;
+      transition: opacity 0.2s;
+    }
+    .photo-container img:hover { opacity: 0.88; }
+
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 16, 30, 0.95);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+
+    #lightbox.open { display: flex; }
+
+    #lightbox img {
+      max-width: 92vw;
+      max-height: 90vh;
+      object-fit: contain;
+      box-shadow: 0 8px 60px rgba(0,0,0,0.7);
+      border: 1px solid rgba(200,151,58,0.3);
+      animation: zoomIn 0.25s ease;
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.93); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    #lightbox-close {
+      position: fixed;
+      top: 20px; right: 28px;
+      color: var(--accent-light);
+      font-size: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    #lightbox-close:hover { opacity: 1; }
+
     @media (max-width: 600px) {
       main { padding: 0 20px 60px; }
       .header-inner { padding: 48px 20px 40px; }
@@ -957,5 +1004,29 @@
     options: { ...baseOpts('Massa (g)'), barPercentage: 0.7, categoryPercentage: 0.7 }
   });
 </script>
+<!-- ══ LIGHTBOX ══ -->
+<div id="lightbox">
+  <span id="lightbox-close">✕</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('.photo-container img').forEach(img => {
+    img.addEventListener('click', () => {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lightbox.classList.add('open');
+    });
+  });
+
+  lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') lightbox.classList.remove('open');
+  });
+</script>
+
 </body>
 </html>
