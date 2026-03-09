@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Relazione di Fisica — Sistemi di Forze</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0f1f3d;
+      --blue: #1a3a6b;
+      --accent: #c8973a;
+      --accent-light: #e8c57a;
+      --cream: #faf8f3;
+      --paper: #f5f2ea;
+      --text: #1c1c2e;
+      --muted: #5a5a72;
+      --line: #d4cfc0;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .header-stripe {
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 50%, var(--accent) 100%);
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 64px 40px 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    header h1 em {
+      font-style: italic;
+      color: var(--accent-light);
+    }
+
+    .header-subtitle {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.55);
+      font-style: italic;
+      margin-top: 12px;
+      margin-bottom: 36px;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .meta-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .meta-value {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      font-style: italic;
+    }
+
+    .header-bg-pattern {
+      position: absolute;
+      top: 0; right: 0;
+      width: 340px; height: 100%;
+      opacity: 0.04;
+      background-image: radial-gradient(circle, white 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--blue);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    nav ul {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      list-style: none;
+      gap: 0;
+    }
+
+    nav a {
+      display: block;
+      padding: 16px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent-light);
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    /* ── SECTION ── */
+    section {
+      padding-top: 72px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 36px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    p {
+      margin-bottom: 1.3em;
+      font-size: 1.02rem;
+      color: var(--text);
+    }
+
+    /* ── MATERIALI LIST ── */
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .material-item {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      font-size: 0.93rem;
+      color: var(--text);
+      font-style: italic;
+    }
+
+    /* ── FORMULA BOX ── */
+    .formula-box {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 4px;
+      padding: 32px 40px;
+      margin: 32px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .formula-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent));
+    }
+
+    .formula-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .formula {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      font-style: italic;
+      color: var(--white);
+      line-height: 2;
+    }
+
+    .formula-fraction {
+      display: inline-block;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .formula-num {
+      display: block;
+      border-bottom: 2px solid var(--accent-light);
+      padding-bottom: 4px;
+      margin-bottom: 4px;
+    }
+
+    .formula-den {
+      display: block;
+    }
+
+    .formula-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 16px;
+      font-family: 'Source Serif 4', serif;
+      font-style: italic;
+    }
+
+    /* ── PHOTO ── */
+    .photo-container {
+      margin: 32px 0;
+      text-align: center;
+    }
+
+    .photo-container img {
+      max-width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 24px rgba(15,31,61,0.12);
+    }
+
+    .photo-caption {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
+
+    .photo-placeholder {
+      background: var(--paper);
+      border: 2px dashed var(--line);
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    .photo-placeholder .icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 12px;
+      opacity: 0.4;
+    }
+
+    /* ── DATA TABLE ── */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 32px 0;
+      border: 1px solid var(--line);
+      box-shadow: 0 2px 12px rgba(15,31,61,0.06);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    thead {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    thead th {
+      padding: 14px 18px;
+      text-align: center;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    thead th:first-child {
+      text-align: left;
+      background: var(--blue);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--line);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover {
+      background: rgba(200,151,58,0.06);
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody td {
+      padding: 12px 18px;
+      text-align: center;
+      color: var(--text);
+    }
+
+    tbody td:first-child {
+      text-align: left;
+      font-weight: 500;
+      color: var(--navy);
+      background: rgba(15,31,61,0.03);
+    }
+
+    .table-caption {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    /* ── CHART ── */
+    .chart-section {
+      margin: 40px 0;
+    }
+
+    .chart-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .chart-wrap {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 28px 20px 20px;
+      position: relative;
+    }
+
+    canvas {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* ── STATS BOX ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+
+    .stat-card {
+      background: var(--navy);
+      color: var(--white);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--accent);
+    }
+
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .stat-unit {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      margin-left: 4px;
+    }
+
+    /* ── CONCLUSIONI ── */
+    .conclusion-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--accent);
+      padding: 36px 40px;
+      margin: 32px 0;
+    }
+
+    .conclusion-box p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 32px 40px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    footer span {
+      color: var(--accent);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate {
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    section:nth-child(1) .animate { animation-delay: 0.1s; }
+    section:nth-child(2) .animate { animation-delay: 0.15s; }
+    section:nth-child(3) .animate { animation-delay: 0.2s; }
+
+    /* ── DIVIDER ── */
+    .ornament {
+      text-align: center;
+      color: var(--accent);
+      letter-spacing: 0.5em;
+      font-size: 0.7rem;
+      margin: 48px 0;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 600px) {
+      main { padding: 0 20px 60px; }
+      .header-inner { padding: 48px 20px 40px; }
+      nav ul { padding: 0 12px; gap: 0; overflow-x: auto; }
+      nav a { padding: 14px 12px; font-size: 10px; }
+      .formula { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="header-stripe"></div>
+  <div class="header-bg-pattern"></div>
+  <div class="header-inner">
+    <div class="header-label">Relazione di Laboratorio · Fisica</div>
+    <h1>Sistemi di <em>Forze</em><br>in Equilibrio</h1>
+    <p class="header-subtitle">Analisi sperimentale mediante scomposizione vettoriale delle forze</p>
+    <div class="header-meta">
+      <div class="meta-item">
+        <span class="meta-label">Oggetto</span>
+        <span class="meta-value">Dinamometri & Sistema a 3 masse</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Metodo</span>
+        <span class="meta-value">Componenti cartesiane + S.Q.M.</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Misurazioni</span>
+        <span class="meta-value">8 per sistema</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <ul>
+    <li><a href="#introduzione">Introduzione</a></li>
+    <li><a href="#materiali">Materiali</a></li>
+    <li><a href="#dinamometro">Dinamometri</a></li>
+    <li><a href="#tre-masse">3 Masse</a></li>
+    <li><a href="#conclusioni">Conclusioni</a></li>
+  </ul>
+</nav>
+
+<!-- ══ MAIN ══ -->
+<main>
+
+  <!-- INTRODUZIONE -->
+  <section id="introduzione">
+    <div class="section-header animate">
+      <span class="section-num">§ 01</span>
+      <h2>Introduzione</h2>
+    </div>
+    <div class="animate">
+      <p>
+        Nelle esperienze condotte in laboratorio abbiamo raccolto e ordinato dati utilizzando
+        due sistemi distinti: una <strong>massa sospesa da due fili inclinati</strong> a diverse
+        ampiezze, e un <strong>sistema di carrucole a tre masse</strong>.
+      </p>
+      <p>
+        Con questi dati l'obiettivo era calcolare il valore delle masse <em>M</em> facendo utilizzo
+        della scomposizione in componenti delle forze. Si voleva in particolare analizzare le forze
+        che agiscono sui fili che reggono le masse, e verificare se le misurazioni sperimentali
+        coincidono con i valori ottenuti attraverso i calcoli teorici.
+      </p>
+    </div>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- MATERIALI -->
+  <section id="materiali">
+    <div class="section-header animate">
+      <span class="section-num">§ 02</span>
+      <h2>Materiali e Strumentazione</h2>
+    </div>
+    <div class="animate">
+      <p>Per compiere le diverse misurazioni sono stati impiegati i seguenti strumenti:</p>
+      <div class="materials-grid">
+        <div class="material-item">Due dinamometri</div>
+        <div class="material-item">Sistema a tre masse (due carrucole + filo in tensione)</div>
+        <div class="material-item">Goniometro per la misura degli angoli</div>
+        <div class="material-item">Masse calibrate di varie grandezze e sassi</div>
+        <div class="material-item">Bilancia per la misura della massa degli oggetti</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- SISTEMA DINAMOMETRO -->
+  <section id="dinamometro">
+    <div class="section-header animate">
+      <span class="section-num">§ 03</span>
+      <h2>Sistema Dinamometro</h2>
+    </div>
+    <div class="animate">
+      <p>
+        In questo sistema due dinamometri misurano le forze <em>F</em>₁ e <em>F</em>₂.
+        La massa <em>m</em> è sorretta dai dinamometri, e si formano due angoli
+        <em>α</em> e <em>β</em> misurati con il goniometro.
+      </p>
+    </div>
+
+    <!-- FOTO -->
+    <div class="photo-container animate">
+      <img src="images/dinamometro.jpg" alt="Apparato sperimentale con i due dinamometri"
+           onerror="this.parentElement.innerHTML='<div class=\'photo-placeholder\'><span class=\'icon\'>📷</span>Inserire l\'immagine in <code>images/dinamometro.jpg</code></div><p class=\'photo-caption\'>Fig. 1 — Apparato sperimentale: sistema con due dinamometri</p>'">
+      <p class="photo-caption">Fig. 1 — Apparato sperimentale: sistema con due dinamometri</p>
+    </div>
+
+    <!-- FORMULA -->
+    <div class="formula-box animate">
+      <div class="formula-label">Formula di calcolo della massa</div>
+      <div class="formula">
+        <em>m</em> =
+        <span class="formula-fraction">
+          <span class="formula-num"><em>F</em>₁ · sin<em>α</em> + <em>F</em>₂ · sin<em>β</em></span>
+          <span class="formula-den"><em>g</em></span>
+        </span>
+      </div>
+      <div class="formula-desc">
+        dove <em>g</em> = 9,81 m/s² è l'accelerazione di gravità
+      </div>
+    </div>
+
+    <!-- TABELLA -->
+    <div class="animate">
+      <p class="table-caption">Tab. 1 — Dati raccolti nelle 8 misurazioni (sistema dinamometro)</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>N</th>
+              <th>F₁ (N)</th>
+              <th>F₂ (N)</th>
+              <th>α (°)</th>
+              <th>β (°)</th>
+              <th>m (g)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>0,39</td><td>0,29</td><td>80</td><td>75</td><td>67,71</td></tr>
+            <tr><td>2</td><td>0,40</td><td>0,34</td><td>70</td><td>65</td><td>69,73</td></tr>
+            <tr><td>3</td><td>0,60</td><td>0,55</td><td>55</td><td>50</td><td>93,05</td></tr>
+            <tr><td>4</td><td>0,90</td><td>0,95</td><td>35</td><td>35</td><td>108,17</td></tr>
+            <tr><td>5</td><td>0,71</td><td>0,80</td><td>43</td><td>45</td><td>107,02</td></tr>
+            <tr><td>6</td><td>1,00</td><td>1,00</td><td>35</td><td>30</td><td>109,44</td></tr>
+            <tr><td>7</td><td>0,55</td><td>0,53</td><td>45</td><td>35</td><td>70,63</td></tr>
+            <tr><td>8</td><td>0,30</td><td>0,48</td><td>45</td><td>40</td><td>53,08</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Da notare che il risultato in grammi della massa non è costante tra le misurazioni.
+        Per ottenere un valore rappresentativo si calcola quindi lo <strong>scarto quadratico medio</strong>.
+      </p>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row animate">
+      <div class="stat-card">
+        <div class="stat-label">Media m</div>
+        <div class="stat-value">84,85<span class="stat-unit">g</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">S.Q.M.</div>
+        <div class="stat-value">±22,4<span class="stat-unit">g</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Misurazioni</div>
+        <div class="stat-value">8<span class="stat-unit">trials</span></div>
+      </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="chart-section animate">
+      <div class="chart-title">Grafico 1 — Angoli α e β per ogni misurazione</div>
+      <div class="chart-wrap">
+        <canvas id="chartAngles1" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-section animate">
+      <div class="chart-title">Grafico 2 — Forze F₁ e F₂ per ogni misurazione</div>
+      <div class="chart-wrap">
+        <canvas id="chartForces1" height="220"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- SISTEMA 3 MASSE -->
+  <section id="tre-masse">
+    <div class="section-header animate">
+      <span class="section-num">§ 04</span>
+      <h2>Sistema a 3 Masse</h2>
+    </div>
+    <div class="animate">
+      <p>
+        In questo sistema l'obiettivo era calcolare <em>m</em>₂, la massa posta a destra,
+        con <em>m</em>₁ come massa variabile al centro e <em>m<sub>x</sub></em> posta a
+        sinistra con valore fisso di <strong>50 g</strong>.
+      </p>
+    </div>
+
+    <!-- FOTO -->
+    <div class="photo-container animate">
+      <img src="images/tre_masse.jpg" alt="Apparato sperimentale sistema a tre masse"
+           onerror="this.parentElement.innerHTML='<div class=\'photo-placeholder\'><span class=\'icon\'>📷</span>Inserire l\'immagine in <code>images/tre_masse.jpg</code></div><p class=\'photo-caption\'>Fig. 2 — Apparato sperimentale: sistema a tre masse con carrucole</p>'">
+      <p class="photo-caption">Fig. 2 — Apparato sperimentale: sistema a tre masse con carrucole</p>
+    </div>
+
+    <!-- FORMULA -->
+    <div class="formula-box animate">
+      <div class="formula-label">Formula di calcolo di m₂</div>
+      <div class="formula">
+        <em>m</em>₂ =
+        <span class="formula-fraction">
+          <span class="formula-num"><em>m</em>₁ · cos<em>α</em></span>
+          <span class="formula-den">cos<em>β</em> · sin<em>α</em> + sin<em>β</em></span>
+        </span>
+        · cos<em>α</em>
+      </div>
+      <div class="formula-desc">
+        Derivata dall'equilibrio delle componenti orizzontali e verticali del nodo centrale
+      </div>
+    </div>
+
+    <!-- TABELLA -->
+    <div class="animate">
+      <p class="table-caption">Tab. 2 — Dati raccolti nelle 8 misurazioni (sistema a 3 masse)</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>N</th>
+              <th>m₁ (g)</th>
+              <th>α (°)</th>
+              <th>β (°)</th>
+              <th>m₂ calc. (g)</th>
+              <th>Media</th>
+              <th>S.Q. (g²)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>50</td><td>23</td><td>31</td><td>45,20</td><td rowspan="8" style="vertical-align:middle; font-weight:600; color:var(--navy)">47,47 g</td><td>5,14</td></tr>
+            <tr><td>2</td><td>55</td><td>30</td><td>35</td><td>45,35</td><td>4,49</td></tr>
+            <tr><td>3</td><td>60</td><td>45</td><td>40</td><td>50,56</td><td>9,57</td></tr>
+            <tr><td>4</td><td>65</td><td>45</td><td>45</td><td>45,96</td><td>2,27</td></tr>
+            <tr><td>5</td><td>71</td><td>30</td><td>50</td><td>34,40</td><td>170,86</td></tr>
+            <tr><td>6</td><td>76</td><td>55</td><td>50</td><td>55,59</td><td>65,99</td></tr>
+            <tr><td>7</td><td>100</td><td>65</td><td>65</td><td>55,17</td><td>59,31</td></tr>
+            <tr><td>8</td><td>94,4</td><td>55</td><td>60</td><td>47,51</td><td>≈ 0,00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row animate">
+      <div class="stat-card">
+        <div class="stat-label">Media m₂</div>
+        <div class="stat-value">47,47<span class="stat-unit">g</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">m<sub>x</sub> (fisso)</div>
+        <div class="stat-value">50<span class="stat-unit">g</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Misurazioni</div>
+        <div class="stat-value">8<span class="stat-unit">trials</span></div>
+      </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="chart-section animate">
+      <div class="chart-title">Grafico 3 — Angoli α e β per ogni misurazione</div>
+      <div class="chart-wrap">
+        <canvas id="chartAngles2" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-section animate">
+      <div class="chart-title">Grafico 4 — Confronto m₁ e m₂ calcolata</div>
+      <div class="chart-wrap">
+        <canvas id="chartMasses" height="220"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- CONCLUSIONI -->
+  <section id="conclusioni">
+    <div class="section-header animate">
+      <span class="section-num">§ 05</span>
+      <h2>Conclusioni</h2>
+    </div>
+    <div class="animate">
+      <div class="conclusion-box">
+        <p>
+          I dati organizzati <strong>confermano le formule utilizzate</strong> per calcolare la massa
+          in un sistema di funi in equilibrio. Si nota come le differenze tra le masse calcolate
+          nelle varie misurazioni dei due sistemi siano minime e riconducibili a cause sistematiche
+          e casuali ben identificabili:
+        </p>
+        <p>
+          le imperfezioni intrinseche degli strumenti di misurazione, il loro stato di usura,
+          e l'inevitabile <strong>errore umano</strong> nella lettura degli angoli con il goniometro
+          e nella lettura delle forze dai dinamometri.
+        </p>
+        <p>
+          Il calcolo dello <strong>scarto quadratico medio</strong> ha permesso di ricavare un valore
+          rappresentativo della massa in entrambi i sistemi, dimostrando la validità del metodo
+          di scomposizione vettoriale delle forze applicato a sistemi in equilibrio statico.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <span>Laboratorio di Fisica</span> &nbsp;—&nbsp; Relazione sperimentale &nbsp;·&nbsp; Sistemi di forze in equilibrio
+</footer>
+
+<!-- ══ CHARTS JS ══ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+  const NAVY = '#0f1f3d';
+  const ACCENT = '#c8973a';
+  const ACCENT2 = '#1a3a6b';
+  const GRID = '#d4cfc0';
+  const TEXT = '#5a5a72';
+
+  const baseOpts = (yLabel) => ({
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: {
+          color: TEXT,
+          font: { family: 'JetBrains Mono', size: 11 },
+          boxWidth: 12
+        }
+      },
+      tooltip: {
+        backgroundColor: NAVY,
+        titleColor: ACCENT,
+        bodyColor: '#fff',
+        borderColor: ACCENT,
+        borderWidth: 1,
+        titleFont: { family: 'JetBrains Mono', size: 11 },
+        bodyFont: { family: 'JetBrains Mono', size: 11 }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: GRID },
+        ticks: { color: TEXT, font: { family: 'JetBrains Mono', size: 11 } },
+        title: { display: true, text: 'Misurazione N', color: TEXT, font: { family: 'JetBrains Mono', size: 10 } }
+      },
+      y: {
+        grid: { color: GRID },
+        ticks: { color: TEXT, font: { family: 'JetBrains Mono', size: 11 } },
+        title: { display: true, text: yLabel, color: TEXT, font: { family: 'JetBrains Mono', size: 10 } }
+      }
+    }
+  });
+
+  const labels = ['1','2','3','4','5','6','7','8'];
+
+  // Chart 1: angoli sistema 1
+  new Chart(document.getElementById('chartAngles1'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'α (°)', data: [80,70,55,35,43,35,45,45], backgroundColor: NAVY, borderRadius: 2 },
+        { label: 'β (°)', data: [75,65,50,35,45,30,35,40], backgroundColor: ACCENT, borderRadius: 2 }
+      ]
+    },
+    options: { ...baseOpts('Angolo (°)'), barPercentage: 0.7, categoryPercentage: 0.7 }
+  });
+
+  // Chart 2: forze sistema 1
+  new Chart(document.getElementById('chartForces1'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'F₁ (N)', data: [0.39,0.40,0.60,0.90,0.71,1.00,0.55,0.30], backgroundColor: NAVY, borderRadius: 2 },
+        { label: 'F₂ (N)', data: [0.29,0.34,0.55,0.95,0.80,1.00,0.53,0.48], backgroundColor: ACCENT, borderRadius: 2 }
+      ]
+    },
+    options: { ...baseOpts('Forza (N)'), barPercentage: 0.7, categoryPercentage: 0.7 }
+  });
+
+  // Chart 3: angoli sistema 2
+  new Chart(document.getElementById('chartAngles2'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'α (°)', data: [23,30,45,45,30,55,65,55], backgroundColor: NAVY, borderRadius: 2 },
+        { label: 'β (°)', data: [31,35,40,45,50,50,65,60], backgroundColor: ACCENT, borderRadius: 2 }
+      ]
+    },
+    options: { ...baseOpts('Angolo (°)'), barPercentage: 0.7, categoryPercentage: 0.7 }
+  });
+
+  // Chart 4: m1 vs m2
+  new Chart(document.getElementById('chartMasses'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'm₁ (g)', data: [50,55,60,65,71,76,100,94.4], backgroundColor: NAVY, borderRadius: 2 },
+        { label: 'm₂ calc. (g)', data: [45.20,45.35,50.56,45.96,34.40,55.59,55.17,47.51], backgroundColor: ACCENT, borderRadius: 2 }
+      ]
+    },
+    options: { ...baseOpts('Massa (g)'), barPercentage: 0.7, categoryPercentage: 0.7 }
+  });
+</script>
+</body>
+</html>
